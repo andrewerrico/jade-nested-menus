@@ -1,0 +1,19 @@
+- var menu = [{ name: "Home", slug: "index.html", title: "Home" }, { name: "About", slug: "#", title: "About", children: [{ name: 'About Us', slug: 'about-us.html', title: 'About Us' }, { name: 'About You', slug: "about-you.html", title: "About You" }, { name: "About Theme", slug: "about-them.html", title: "About Theme" }] }, { name: "Contact", slug: "contact.html", title: "Contact Us" }]
+
+mixin mainMenu()
+  ul
+    each item in menu
+      if item.children
+        li.has-submenu
+          a(href = "#{item.slug}", title = "#{item.title}") #{item.name}
+          ul.submenu
+            each child, index in item.children
+              - child = item.children[index]
+                li
+                  a(href = "#{child.slug}", title = "#{child.title}") #{child.name}
+      else
+        li
+          a(href = "#{item.slug}", title = "#{item.title}") #{item.name}
+          
+nav
+  +mainMenu()
